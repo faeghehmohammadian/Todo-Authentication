@@ -1,0 +1,46 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 400px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+/* #signina{
+    /* background-color: #007bff;
+    color: white;
+    display: block;
+    padding: 10px; */
+    /* border: none;
+    cursor: pointer;
+    font-size: 13.3333px; */
+    /* } */ 

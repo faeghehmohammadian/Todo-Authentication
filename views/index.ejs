@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/scss/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="navbar">
+        <samp >Hi Guest!</samp>
+        <div class="auth-links">
+            <a href="/signin" id="signin-link">Sign In</a>
+            <a href="/signup" id="signout-link">Sign Out</a>
+        </div>
+    </div>
+    <h2>TOdo List</h2>
+    <ul class="menus" data-bind="foreach:menus">
+        <li data-bind="text: $data, 
+                css: { selected: $data == $root.chosenMenuId() },
+                click: $root.goToMenu"></li>
+                
+    </ul>
+    <div class="menusUploadDownload">
+        <button id="Upload" data-bind="click:$root.uploadfunction">Upload</button>
+        <button id="Download" data-bind="click:$root.downloadfunction">Download</button>
+    </div>
+    <div class="maininput"data-bind="visible:inputVisible">
+        <input class="inputTodoText" value="" >
+        <button data-bind="click:addFunction">Add</button>
+    </div>
+    <div class="List" data-bind="foreach:todoList " >
+        <div data-bind="visible:isVisible">
+            <input id="inputs" data-bind="value:todoText,
+                                    disable: isActive,
+                                    css:{completetodo:isComplete}
+                                    ">
+        <button id="Edit" data-bind="click:$parent.editable">Edit</button>
+        <button id="Save" data-bind="click:$parent.saveItem">Save</button>
+        <button id="Done" data-bind="click:$root.makeComplete">Done</button>
+        <button id="Del" data-bind="click:$root.deleteTodo">Delete</button>
+        </div>
+    </div>
+    
+    <script src="./js/knockout-3.5.1.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

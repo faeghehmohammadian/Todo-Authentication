@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:cursive;
+    font-size: 20px;
+}
+body{
+    width: 430px;
+    max-width: 430px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom:  30px;
+    border: 2px solid#007bff;
+    h2{
+        background-color: #007bff;
+        text-align: center;
+        padding: 15px;
+    }
+}
+.menus{
+    display: flex;
+    list-style: none;
+    background-color:#007bff;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.menus{
+    li{
+        width: 100px;
+        padding: 5px;
+        //border: solid 1px lightgray;
+        text-align: center;
+        font-size: small;
+    
+    }
+}
+.menus li:hover{
+    background-color: #86bffc;
+    color: white;
+}
+.selected{
+    background-color: white;
+}
+.maininput{
+    margin: auto;
+    text-align: center;
+    input{
+        font-size: large;
+        width: 60%;
+        height: 40px;
+        margin: 20px;
+        padding-left: 10px;
+    }
+    button{
+        padding: 5px;
+        border: none;
+        background-color: #007bff;
+        border-radius: 5px;
+        font-size: small;
+    }
+}
+
+.List{
+    text-align: center;
+    height: 200px;
+    overflow: auto;
+    input{
+        font-size: 1em;
+        width: 40%;
+        height: 30px;
+        margin: 5px 20px;
+        border: none;
+    }
+    button{
+        padding: 5px;
+        font-size:small;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        &#Edit{
+            background-color: darksalmon;
+        }
+        &#Save{
+            background-color: deepskyblue;
+        }
+        &#Done{
+            background-color: darkgrey;
+        }
+        &#Del{
+            background-color: crimson;
+    }
+        }
+        
+}
+.completetodo{
+    text-decoration:line-through;
+    background-color: rgb(161, 158, 158);
+    color: white;
+}
+.load{
+    display: flex;
+    justify-content: end;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #007bff;
+    samp{
+        font-size: small;
+    }
+}
+
+.navbar a {
+text-decoration: none;
+color: #000;
+padding: 5px;
+font-size: small;
+}
+.navbar a:hover {
+    background-color: #82bbf8;
+    color: white;
+}
+.auth-links {
+display: flex;
+}
+.menusUploadDownload{
+    // width: 60%;
+    background-color: #007bff;
+    display: flex;
+    // position: absolute;
+    bottom: 0;
+    justify-content: end;
+}
+.menusUploadDownload button{
+    background-color: #007bff;
+    font-size: small;
+    border-style: none;
+    padding: 3px;
+}
+.menusUploadDownload button:hover{
+    border: none;
+    background-color: #82bbf8;
+    color: white;
+}
+// .auth-links a {
+// margin-left: 10px;
+// }

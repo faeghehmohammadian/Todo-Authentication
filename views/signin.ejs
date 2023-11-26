@@ -10,11 +10,17 @@
     <div class="container">
         <h1>Login</h1>
         <form action="/signin" method="POST" id="signin">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
+        <label for="email">email:</label>
+        <input type="text" id="email" name="email">
         <br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password">
+        <br>
+        <% if (messages.error) { %>
+            <div class="errormessage">
+                <strong><%= messages.error %></strong>
+            </div>
+        <% } %>
         <br>
         <input type="submit" value="Signin">
         <br>
@@ -23,11 +29,11 @@
         </p>
         </form>
     </div>
-    <script>
+    <!-- <script>
         // Register form submission
         document.getElementById('signin').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             console.log(email,password)
             const response = fetch("http://localhost:5500/signin", {
@@ -41,6 +47,6 @@
                 },
             });
         });
-        </script>
+        </script> -->
 </body>
 </html>

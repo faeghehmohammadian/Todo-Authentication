@@ -4,25 +4,35 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require('express');
 const server = express();
-
-const fs= require("fs");
-
-const path = require("path");
-const bcrypt = require("bcrypt");
 const port = 5500;
+const path = require("path");
+const mainpath=path.normalize(__dirname + "//..");
+const bodyParser = require("body-parser");
+const fs= require("fs");
+const router = express.Router();
+
+const bcrypt = require("bcrypt");
 const passport = require("passport");
-const initializePassport = require("./passport-config");
 const flash = require("express-flash");
 const session = require("express-session");
 
+
+const users=[];
+
+server.use(express.json());
+server.use(express.static(path.join(__dirname, "../client")));
+server.use(express.static(path.join(__dirname, "../views")));
+server.use(bodyParser.urlencoded({ extended: false }));
+
+const initializePassport = require("./passport-config");
 initializePassport(
     passport,
     (email) => users.find((user) => user.email === email),
     (id) => users.find((user) => user.id === id)
 );
-server.use(passport.initialize());
-server.use(passport.session());
-//const bodyParser=require("body-parser");
+server.set('view engine', 'ejs');
+server.use(express.urlencoded({extended:false}));
+
 server.use(flash());
 server.use(
     session({
@@ -31,50 +41,17 @@ server.use(
         saveUninitialized: false,
     })
 );
+server.use(passport.initialize());
+server.use(passport.session());
 
+server.post("/signin", checkNotAuthenticated, passport.authenticate("local",{
+    successRedirect: "/",
+    failureRedirect: "/signin",
+    failureFlash: true
+}  
+));
 
-
-server.set('view engine', 'ejs');
-
-const mainpath=path.normalize(__dirname + "//..");
-// server.use(bodyParser.urlencoded({extended:true}))
-// server.use(bodyParser.json())
-server.use(express.static(mainpath +"/client"));
-server.listen(port, () => {
-console.log(`Server running on PORT: ${port}/`);
-});
-server.use(express.json());
-server.use(express.urlencoded({extended:true}));
-const userRouter=require("../routes/users-route");
-const users=[];
-//server.use("/user",userRouter)
-// server.use(router);
-server.get("/",(req,res)=>{
-    res.render("index.ejs");
-});
-
-// const usersData = require('../users/usersdata.json');
-//server.get("/signin",userRouter)
-// server.post('/signin', (req, res) => {
-//     // const email = req.body.email;
-//     // const password = req.body.password;
-
-//     // const user = usersData.find(user => user.username === username && user.password === password);
-
-//     // if (user) {
-//     //     // Generate a JWT token
-//     //     const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-
-//     //     res.json({ token });
-//     // } else {
-//     //     res.status(401).send('Invalid username or password');
-//     // }
-// });
-server.get('/signup', (req, res) => {
-    res.render("signup.ejs");
-});
-//server.get("/signin",userRouter)
-server.post("/signup", async(req, res) => {
+server.post("/signup",checkNotAuthenticated, async(req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         users.push({
@@ -82,32 +59,34 @@ server.post("/signup", async(req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
+            todo:[]
         });
         console.log(users);
         fs.writeFile(mainpath + '/users/usersdata.json', JSON.stringify(users, null, ' '), { encoding: 'utf-8' }, (err) => {
             if (err) {
-                res.redirect("/signin"); // Still redirect on error if file write fails
+                res.send(err) // Still redirect on error if file write fails
                 return;
             }
-            // Successful file write, now redirect
-            res.redirect("/signin");
-        });
+        })
+        // Successful file write, now redirect
+        res.redirect("/signin")
         } catch (err) {
         console.log(err);
-        res.redirect("/signin");
+        res.redirect("/signup")
         }
-        
     });
-server.get("/signin", (req, res) => {
-    //res.sendFile(mainpath +"/client/signin.html");
+
+server.get("/",checkAuthenticated,(req,res)=>{
+    res.render("index.ejs",{username:req.user.username});
+});
+
+server.get("/signin",checkNotAuthenticated, (req, res) => {
     res.render("signin.ejs");
 });
 
-server.post("/signin", passport.Authenticator("local",{
-    successRedirect: "/",
-    failureRedirect: "/signin",
-    failureFlash: true
-}));
+server.get("/signup",checkNotAuthenticated, (req, res) => {
+    res.render("signup.ejs");
+});
 
 server.get("/download",(req,res)=>{
     fs.readFile(mainpath +"/client/file/data.json",{oncoding: "utf-8"}, (err,data)=>{
@@ -128,3 +107,20 @@ server.post("/upload",(req,res)=>{
         res.json("succes");
     })
 })
+function checkAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) {
+        return next();
+        }
+        res.redirect("/signin");
+    }
+    
+    function checkNotAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) {
+        return res.redirect("/");
+        }
+        next();
+    }
+    
+    server.listen(port, () => {
+        console.log(`Server running on PORT: ${port}/`);
+        });

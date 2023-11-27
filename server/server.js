@@ -121,6 +121,14 @@ function checkAuthenticated(req, res, next) {
         next();
     }
     
+server.get("/signout", (req, res) => {
+    console.log('logOut')
+    req.logOut(function(err) {
+        if (err) { return next(err); }
+        res.redirect("/signin");
+    })
+    })
+
     server.listen(port, () => {
         console.log(`Server running on PORT: ${port}/`);
         });

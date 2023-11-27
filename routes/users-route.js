@@ -3,17 +3,10 @@ const router = express.Router();
 const fs= require("fs");
 const path = require("path");
 const db = require('../models/users-model');
-
-const mainpath=path.normalize(__dirname + "//..");
-//const signinhtml = require('../client/signin.html');
 // GET /account
 router.get('/account', (req, res) => {
     res.json(db.account);
 });
-// router.get('/', (req, res) => {
-//     res.render("signinhtml")
-// });
-
 
 // GET /todos
 router.get('/todos', (req, res) => {

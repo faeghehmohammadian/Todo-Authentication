@@ -11,7 +11,14 @@
         <div class="auth-links">
             <a href="/signin" id="signin-link">Signin</a>
             <a href="/signup" id="signin-link">Signup</a>
-            <a href="/signout" id="signout-link">Signout</a>
+            <% if (username=='Guest'){ %>
+                <a href="/signout" id="signout-link">Signout</a>
+                <script>
+                    document.getElementById('signout-link').style.display = 'none';
+                </script>
+                <% }else{ %>
+                <a href="/signout" id="signout-link">Signout</a>
+                <%}%>
         </div>
     </div>
     <h2>TOdo List</h2>

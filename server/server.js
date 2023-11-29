@@ -82,9 +82,9 @@ server.post("/signup",checkNotAuthenticated, async(req, res) => {
 
 server.get("/",(req,res)=>{
     if (req.user) {
-        res.render('index.ejs', { username: req.user.username });
+        res.render('index.ejs', { username: req.user.username});
     } else {
-        res.render('index.ejs', { username: 'Guest' });
+        res.render('index.ejs', { username: 'Guest'});
     }
     });
 

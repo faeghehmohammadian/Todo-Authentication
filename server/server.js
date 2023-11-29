@@ -17,12 +17,13 @@ const flash = require("express-flash");
 const session = require("express-session");
 
 
-const users=[];
+const users=[]
+
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "../client")));
 server.use(express.static(path.join(__dirname, "../views")));
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.urlencoded({ extended: true }));
 
 const initializePassport = require("./passport-config");
 initializePassport(
@@ -43,6 +44,7 @@ server.use(
 );
 server.use(passport.initialize());
 server.use(passport.session());
+// server.get("/account", Router.users-router);
 
 server.post("/signin", checkNotAuthenticated, passport.authenticate("local",{
     successRedirect: "/",
@@ -59,10 +61,12 @@ server.post("/signup",checkNotAuthenticated, async(req, res) => {
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
-            todo:[]
+            todos:[]
         });
         console.log(users);
-        fs.writeFile(mainpath + '/users/usersdata.json', JSON.stringify(users, null, ' '), { encoding: 'utf-8' }, (err) => {
+        fs.writeFile(mainpath + '/users/usersdata.json',
+                    JSON.stringify(users, null, ' '),
+                    { encoding: 'utf-8' }, (err) => {
             if (err) {
                 res.send(err) // Still redirect on error if file write fails
                 return;
@@ -76,25 +80,53 @@ server.post("/signup",checkNotAuthenticated, async(req, res) => {
         }
     });
 
-server.get("/",checkAuthenticated,(req,res)=>{
-    res.render("index.ejs",{username:req.user.username});
+server.get("/",(req,res)=>{
+    if (req.user) {
+        res.render('index.ejs', { username: req.user.username });
+    } else {
+        res.render('index.ejs', { username: 'Guest' });
+    }
+    });
+
+server.post("/",function(req,res){
+    const curuser=users.find((user) => user.id === req.user.id)
+    console.log(curuser);
+    curuser.todos.push(req.body)
+
+    fs.writeFile(mainpath + '/users/usersdata.json',
+                    JSON.stringify(users, null, ' '),
+                    { encoding: 'utf-8' }, (err) => {
+            if (err) {
+                res.send(err) // Still redirect on error if file write fails
+                return;
+            }
+        })
+    console.log(users);
+    res.redirect("/")
 });
 
-server.get("/signin",checkNotAuthenticated, (req, res) => {
+server.get("/signin", (req, res) => {
     res.render("signin.ejs");
 });
 
-server.get("/signup",checkNotAuthenticated, (req, res) => {
+server.get("/signup", (req, res) => {
     res.render("signup.ejs");
 });
 
 server.get("/download",(req,res)=>{
-    fs.readFile(mainpath +"/client/file/data.json",{oncoding: "utf-8"}, (err,data)=>{
+        
+    fs.readFile(mainpath + '/users/usersdata.json',{oncoding: "utf-8"}, (err,data)=>{
         if (err){
             res.send(err);
             return;
         }
-        res.send(data);
+        const usersjson = JSON.parse(data);
+        console.log(JSON.parse(data));
+        const curuser=usersjson.find((user) => user.id === req.user.id)
+        console.log(curuser);
+        const curusertodos=curuser.todos;
+        console.log(curusertodos);
+        res.send(curusertodos);
     })
 })
 server.post("/upload",(req,res)=>{

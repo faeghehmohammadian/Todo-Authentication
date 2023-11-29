@@ -17,11 +17,41 @@ function todoappViewModel(){
     self.addFunction=function(){
         if(inputTodoText.value){
             self.todoList.push(new todoModel(inputTodoText.value,false));
-            addToLocalStorageArray(inputTodoText.value,false)
-            inputTodoText.value='';
+            //addToLocalStorageArray(inputTodoText.value,false)
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({id:Math.floor(Math.random()*1000000),
+                                    todo:inputTodoText.value,
+                                    completed:false}), // Assuming todoData is a JSON object
+            })
+                .then(response => response.text())
+                .then(data => {
+                console.log('Server response:', data);
+                // Handle the server response as needed
+                })
+                .catch(error => {
+                console.error('Error:', error);
+                // Handle errors
+                });
+                inputTodoText.value='';
+
+            fetch("/")
+                .then(res => res.json())
+                .then((json) => json.forEach((el)=>{
+                    console.log(el);
+                    self.todoList.push(new todoModel(el.todo,el.completed))
+                    //localStorage.setItem("todo",JSON.stringify(json));
+                    addToLocalStorageArray(inputTodoText.value,false)
+                })  
+                )
+                .catch(err=>console.warn(err))
+            };
         }
-    }
     
+        
     self.inputVisible=ko.observable(true);
     self.goToMenu = function(menu){
         
@@ -70,7 +100,7 @@ function todoappViewModel(){
     }
     self.saveItem=function(todosave){
         this.isActive(true);
-        addToLocalStorageArray(todosave.todoText,false)
+        //addToLocalStorageArray(todosave.todoText,false)
         //localStorage.setItem(todo.todoText,todo.isComplete())
         const tasks = JSON.parse(localStorage.getItem("todo"));
         const finaltasks = tasks.filter(function (word) {
@@ -118,7 +148,7 @@ function todoappViewModel(){
         .then(res => res.json())
         .then((json) => json.forEach((el)=>{
             self.todoList.push(new todoModel(el.todo,el.completed))
-            localStorage.setItem("todo",JSON.stringify(json));
+            //localStorage.setItem("todo",JSON.stringify(json));
         })  
         )
         .catch(err=>console.warn(err))
@@ -155,7 +185,7 @@ var addToLocalStorageArray = function (todo, value) {
         const todos=JSON.parse(tasks)
         todos.push(
             {
-                id:id,
+                id:generateUniqueId(),
                 todo:todo,
                 completed:value
             }
@@ -163,4 +193,6 @@ var addToLocalStorageArray = function (todo, value) {
         localStorage.setItem("todo",JSON.stringify(todos));
     // }
 };
-
+function generateUniqueId() {
+    return Math.random().toString(36).substring(2, 10);
+}

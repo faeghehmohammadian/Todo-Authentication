@@ -7,10 +7,11 @@
 </head>
 <body>
     <div class="navbar">
-        <samp >Hi <%= username %> </samp>
+        <samp >Hi <%= username %>!</samp>
         <div class="auth-links">
-            <a href="/signin" id="signin-link">Sign In</a>
-            <a href="/signout" id="signout-link">Sign Out</a>
+            <a href="/signin" id="signin-link">Signin</a>
+            <a href="/signup" id="signin-link">Signup</a>
+            <a href="/signout" id="signout-link">Signout</a>
         </div>
     </div>
     <h2>TOdo List</h2>
@@ -21,26 +22,27 @@
                 
     </ul>
     <div class="menusUploadDownload">
-        <button id="Upload" data-bind="click:$root.uploadfunction">Upload</button>
-        <button id="Download" data-bind="click:$root.downloadfunction">Download</button>
-    </div>
-    <div class="maininput"data-bind="visible:inputVisible">
-        <input class="inputTodoText" value="" >
-        <button data-bind="click:addFunction">Add</button>
-    </div>
-    <div class="List" data-bind="foreach:todoList " >
-        <div data-bind="visible:isVisible">
-            <input id="inputs" data-bind="value:todoText,
-                                    disable: isActive,
-                                    css:{completetodo:isComplete}
-                                    ">
-        <button id="Edit" data-bind="click:$parent.editable">Edit</button>
-        <button id="Save" data-bind="click:$parent.saveItem">Save</button>
-        <button id="Done" data-bind="click:$root.makeComplete">Done</button>
-        <button id="Del" data-bind="click:$root.deleteTodo">Delete</button>
-        </div>
+        <!-- <button id="Upload" data-bind="click:$root.uploadfunction">Upload</button> -->
+        <button id="Download" data-bind="click:$root.downloadfunction">My Todo</button>
     </div>
     
+        <div class="maininput"data-bind="visible:inputVisible">
+                <input class="inputTodoText" value="" name="inputtodo">
+                <button data-bind="click:addFunction" >Add</button>
+        </div>
+    
+        <div class="List" data-bind="foreach:todoList " >
+            <div data-bind="visible:isVisible">
+                <input id="inputs" data-bind="value:todoText,
+                                        disable: isActive,
+                                        css:{completetodo:isComplete}
+                                        ">
+            <button id="Edit" data-bind="click:$parent.editable">Edit</button>
+            <button id="Save" data-bind="click:$parent.saveItem">Save</button>
+            <button id="Done" data-bind="click:$root.makeComplete">Done</button>
+            <button id="Del" data-bind="click:$root.deleteTodo">Delete</button>
+            </div>
+        </div>
     <script src="./js/knockout-3.5.1.js"></script>
     <script src="./js/main.js"></script>
 </body>

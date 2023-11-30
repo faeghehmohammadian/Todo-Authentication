@@ -90,10 +90,10 @@ server.get("/",(req,res)=>{
 
 server.post("/",function(req,res){
     const curuser=users.find((user) => user.id === req.user.id)
-    console.log(curuser);
     curuser.todos=[];
-    curuser.todos.push(req.body)
-    
+    for(var i=0;i<req.body.length;i++){
+        curuser.todos.push((req.body)[i])
+    }
     fs.writeFile(mainpath + '/users/usersdata.json',
                     JSON.stringify(users, null, ' '),
                     { encoding: 'utf-8' }, (err) => {

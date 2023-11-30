@@ -1,17 +1,20 @@
 [
  {
-  "id": "1701342503788",
+  "id": "1701361579872",
   "username": "M",
   "email": "M@yahoo.com",
-  "password": "$2b$10$l6QnTw.Z8w.7C6oXf3PgsucMC6JrIkRYDxLQDkUl1ipMQPxguBg6O",
+  "password": "$2b$10$g2Oz5/2S0KCRNsAVXr33i.poufAdIQK4KDpr/gGHrvpctS7vAIM9q",
   "todos": [
-   [
-    {
-     "id": "599wniud",
-     "todo": "one1",
-     "completed": true
-    }
-   ]
+   {
+    "id": "dh5dev0b",
+    "todo": "one",
+    "completed": true
+   },
+   {
+    "id": "b8bihtku",
+    "todo": "two2",
+    "completed": false
+   }
   ]
  }
 ]

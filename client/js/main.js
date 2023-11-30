@@ -145,7 +145,7 @@ function todoappViewModel(){
             // body: JSON.stringify({id:Math.floor(Math.random()*1000000),
             //                     todo:inputTodoText.value,
             //                     completed:false}), // Assuming todoData is a JSON object
-            body: JSON.stringify(JSON.parse(localStorage.getItem("todo"))), 
+            body: JSON.stringify(JSON.parse(localStorage.getItem("todo")))
         })
         //todo:this.todoList()[].todoText
         .then(response => response.text())

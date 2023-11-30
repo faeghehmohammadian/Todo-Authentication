@@ -15,7 +15,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
-
+const json = require('json');
 
 const users=[]
 
@@ -63,7 +63,7 @@ server.post("/signup",checkNotAuthenticated, async(req, res) => {
             password: hashedPassword,
             todos:[]
         });
-        console.log(users);
+        //console.log(users);
         fs.writeFile(mainpath + '/users/usersdata.json',
                     JSON.stringify(users, null, ' '),
                     { encoding: 'utf-8' }, (err) => {
@@ -91,8 +91,9 @@ server.get("/",(req,res)=>{
 server.post("/",function(req,res){
     const curuser=users.find((user) => user.id === req.user.id)
     console.log(curuser);
+    curuser.todos=[];
     curuser.todos.push(req.body)
-
+    
     fs.writeFile(mainpath + '/users/usersdata.json',
                     JSON.stringify(users, null, ' '),
                     { encoding: 'utf-8' }, (err) => {
@@ -101,7 +102,7 @@ server.post("/",function(req,res){
                 return;
             }
         })
-    console.log(users);
+    //console.log(users);
     res.redirect("/")
 });
 

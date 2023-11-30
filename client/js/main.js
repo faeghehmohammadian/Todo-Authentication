@@ -17,37 +17,19 @@ function todoappViewModel(){
     self.addFunction=function(){
         if(inputTodoText.value){
             self.todoList.push(new todoModel(inputTodoText.value,false));
-            //addToLocalStorageArray(inputTodoText.value,false)
-            fetch('/', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({id:Math.floor(Math.random()*1000000),
-                                    todo:inputTodoText.value,
-                                    completed:false}), // Assuming todoData is a JSON object
-            })
-                .then(response => response.text())
-                .then(data => {
-                console.log('Server response:', data);
-                // Handle the server response as needed
-                })
-                .catch(error => {
-                console.error('Error:', error);
-                // Handle errors
-                });
-                inputTodoText.value='';
+            addToLocalStorageArray(inputTodoText.value,false)
+            inputTodoText.value='';
 
-            fetch("/")
-                .then(res => res.json())
-                .then((json) => json.forEach((el)=>{
-                    console.log(el);
-                    self.todoList.push(new todoModel(el.todo,el.completed))
-                    //localStorage.setItem("todo",JSON.stringify(json));
-                    addToLocalStorageArray(inputTodoText.value,false)
-                })  
-                )
-                .catch(err=>console.warn(err))
+            // fetch("/")
+            //     .then(res => res.json())
+            //     .then((json) => json.forEach((el)=>{
+            //         console.log(el);
+            //         self.todoList.push(new todoModel(el.todo,el.completed))
+            //         localStorage.setItem("todo",JSON.stringify(json));
+            //         addToLocalStorageArray(inputTodoText.value,false)
+            //     })  
+            //     )
+            //     .catch(err=>console.warn(err))
             };
         }
     
@@ -78,7 +60,7 @@ function todoappViewModel(){
     self.goToMenu('All');
 
     self.deleteTodo=function(todo){
-        //localStorage.removeItem(todo.todoText);
+        localStorage.removeItem(todo.todoText);
         self.todoList.remove(todo);
         const tasks = JSON.parse(localStorage.getItem("todo"));
         const Objindex = tasks.findIndex(obj =>(obj.todo == todo.todoText));
@@ -100,7 +82,7 @@ function todoappViewModel(){
     }
     self.saveItem=function(todosave){
         this.isActive(true);
-        //addToLocalStorageArray(todosave.todoText,false)
+        addToLocalStorageArray(todosave.todoText,false)
         //localStorage.setItem(todo.todoText,todo.isComplete())
         const tasks = JSON.parse(localStorage.getItem("todo"));
         const finaltasks = tasks.filter(function (word) {
@@ -125,7 +107,6 @@ function todoappViewModel(){
                         objIndex = tasks.findIndex(obj =>(obj.todo == todo.todoText));
                         tasks[objIndex].completed = true;
                         localStorage.setItem("todo",JSON.stringify(tasks));
-
                     }
                 })
             };
@@ -148,7 +129,7 @@ function todoappViewModel(){
         .then(res => res.json())
         .then((json) => json.forEach((el)=>{
             self.todoList.push(new todoModel(el.todo,el.completed))
-            //localStorage.setItem("todo",JSON.stringify(json));
+            localStorage.setItem("todo",JSON.stringify(json));
         })  
         )
         .catch(err=>console.warn(err))
@@ -156,17 +137,23 @@ function todoappViewModel(){
     }
         //localStorage.setItem("todo",JSON.stringify(response));
     self.uploadfunction=function(){
-        const data=JSON.parse(localStorage.getItem('todo') || '[]')
-        const response= fetch("http://localhost:5500/upload",{
-        method:"POST",
-        body:JSON.stringify(data),
-        headers:{
-            "content-type":"application/json; charset=UTF-8",
-        },
+        fetch('/', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            // body: JSON.stringify({id:Math.floor(Math.random()*1000000),
+            //                     todo:inputTodoText.value,
+            //                     completed:false}), // Assuming todoData is a JSON object
+            body: JSON.stringify(JSON.parse(localStorage.getItem("todo"))), 
         })
-        .then(res=>res.json())
-        .then(err=>console.warn(err));
-        console.log(response);
+        //todo:this.todoList()[].todoText
+        .then(response => response.text())
+        .then(data => {
+        console.log('Server response:', data);
+        // Handle the server response as needed
+        })
+        
     }
 }
 ko.applyBindings(new todoappViewModel());
@@ -196,3 +183,15 @@ var addToLocalStorageArray = function (todo, value) {
 function generateUniqueId() {
     return Math.random().toString(36).substring(2, 10);
 }
+const signin= document.getElementById('signin-link')
+const signup= document.getElementById('signup-link')
+const signout= document.getElementById('signout-link')
+signin.addEventListener('click', function(e) {
+    localStorage.clear();
+})
+signup.addEventListener('click', function(e) {
+    localStorage.clear();
+})
+signout.addEventListener('click', function(e) {
+    localStorage.clear();
+})

@@ -10,7 +10,7 @@
         <samp >Hi <%= username %>!</samp>
         <div class="auth-links">
             <a href="/signin" id="signin-link">Signin</a>
-            <a href="/signup" id="signin-link">Signup</a>
+            <a href="/signup" id="signup-link">Signup</a>
             <% if (username=='Guest'){ %>
                 <a href="/signout" id="signout-link">Signout</a>
                 <script>
@@ -29,7 +29,7 @@
                 
     </ul>
     <div class="menusUploadDownload">
-        <!-- <button id="Upload" data-bind="click:$root.uploadfunction">Upload</button> -->
+        <button id="Upload" data-bind="click:$root.uploadfunction">Save</button>
         <button id="Download" data-bind="click:$root.downloadfunction">My Todo</button>
     </div>
     

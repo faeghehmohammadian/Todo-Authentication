@@ -1,9 +1,17 @@
 [
  {
-  "id": "1701284101012",
+  "id": "1701342503788",
   "username": "M",
   "email": "M@yahoo.com",
-  "password": "$2b$10$75w31rq8Sy72hmsXZI3Jm.qiykUnEPEhH7XxD7jV7KfG.f5gEjHHO",
-  "todos": []
+  "password": "$2b$10$l6QnTw.Z8w.7C6oXf3PgsucMC6JrIkRYDxLQDkUl1ipMQPxguBg6O",
+  "todos": [
+   [
+    {
+     "id": "599wniud",
+     "todo": "one1",
+     "completed": true
+    }
+   ]
+  ]
  }
 ]

@@ -28,11 +28,12 @@
                 click: $root.goToMenu"></li>
                 
     </ul>
-    <div class="menusUploadDownload">
-        <button id="Upload" data-bind="click:$root.uploadfunction">Save</button>
-        <button id="Download" data-bind="click:$root.downloadfunction">My Todo</button>
-    </div>
-    
+    <% if (username !='Guest'){ %>
+        <div class="menusUploadDownload">
+            <button id="Upload" data-bind="click:$root.uploadfunction">Save</button>
+            <button id="Download" data-bind="click:$root.downloadfunction">My Todo</button>
+        </div>
+    <%}%>
         <div class="maininput"data-bind="visible:inputVisible">
                 <input class="inputTodoText" value="" name="inputtodo">
                 <button data-bind="click:addFunction" >Add</button>

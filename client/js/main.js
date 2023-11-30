@@ -112,18 +112,18 @@ function todoappViewModel(){
             };
         });
     }
-    self.Reloadevent =document.addEventListener('DOMContentLoaded', function(e){
-        e.preventDefault();
-        const tasks=JSON.parse(localStorage.getItem('todo') || '[]');
-        if(localStorage.getItem('todo') == '{}'){
-            console.log("az inja")
-        } else{
-        tasks.forEach((el)=>{
-            self.todoList.push(new todoModel(el.todo,el.completed))
+    // self.Reloadevent =document.addEventListener('DOMContentLoaded', function(e){
+    //     e.preventDefault();
+    //     const tasks=JSON.parse(localStorage.getItem('todo') || '[]');
+    //     if(localStorage.getItem('todo') == '{}'){
+    //         console.log("az inja")
+    //     } else{
+    //     tasks.forEach((el)=>{
+    //         self.todoList.push(new todoModel(el.todo,el.completed))
 
-        })       
-    } 
-    })
+    //     })       
+    // } 
+    // })
     self.downloadfunction=function(){
         const response=fetch(`http://localhost:5500/download`)
         .then(res => res.json())

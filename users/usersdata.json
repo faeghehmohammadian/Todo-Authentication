@@ -1,16 +1,9 @@
 [
  {
-  "id": "1701375315776",
+  "id": "1701585293026",
   "username": "M",
   "email": "M@yahoo.com",
-  "password": "$2b$10$nf1zHMPxUUZ4l/hVP5nmD.SJRKbn8kr0iWq0T8DgtdfmcxlJCPz5K",
-  "todos": []
- },
- {
-  "id": "1701375440226",
-  "username": "M",
-  "email": "M@yahoo.com",
-  "password": "$2b$10$hcujm9w5Esi0FwSr8IVblOmDNVIWqd4sznEdoRLgqZuk0WWPIx0Ou",
+  "password": "$2b$10$MGaMJ1e0Ud4mmiJYBXc2Cuzdb2TNJUjkMduxSp/AHp8c1WZw7m75a",
   "todos": []
  }
 ]

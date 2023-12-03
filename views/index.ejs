@@ -9,15 +9,23 @@
     <div class="navbar">
         <samp >Hi <%= username %>!</samp>
         <div class="auth-links">
-            <a href="/signin" id="signin-link">Signin</a>
-            <a href="/signup" id="signup-link">Signup</a>
+            
             <% if (username=='Guest'){ %>
-                <a href="/signout" id="signout-link">Signout</a>
-                <script>
+                    <a href="/signin" id="signin-link">Signin</a>
+                    <a href="/signup" id="signup-link">Signup</a>
+                
+                    <script>
                     document.getElementById('signout-link').style.display = 'none';
-                </script>
+                    </script>
+                
                 <% }else{ %>
-                <a href="/signout" id="signout-link">Signout</a>
+                    <a href="/signout" id="signout-link">Signout</a>
+                
+                    <script>
+                    document.getElementById('signin-link').style.display = 'none';
+                    document.getElementById('signup-link').style.display = 'none';
+                    </script>
+                
                 <%}%>
         </div>
     </div>

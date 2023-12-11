@@ -187,11 +187,14 @@ const signin= document.getElementById('signin-link')
 const signup= document.getElementById('signup-link')
 const signout= document.getElementById('signout-link')
 signin.addEventListener('click', function(e) {
+    debugger
     localStorage.clear();
 })
 signup.addEventListener('click', function(e) {
+    debugger
     localStorage.clear();
 })
 signout.addEventListener('click', function(e) {
+    debugger
     localStorage.clear();
 })

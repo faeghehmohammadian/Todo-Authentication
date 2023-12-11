@@ -1,16 +1,38 @@
 [
  {
-  "id": "1701375315776",
+  "id": "1702285556422",
   "username": "M",
   "email": "M@yahoo.com",
-  "password": "$2b$10$nf1zHMPxUUZ4l/hVP5nmD.SJRKbn8kr0iWq0T8DgtdfmcxlJCPz5K",
-  "todos": []
+  "password": "$2b$10$TF5ABJeMcqM7lATvjE9C.OOJTnCnDWVyl000vr2lZ4CZqKi8O7qtS",
+  "todos": [
+   {
+    "id": "3c1envcj",
+    "todo": "one",
+    "completed": false
+   },
+   {
+    "id": "3kvds5ko",
+    "todo": "two",
+    "completed": false
+   }
+  ]
  },
  {
-  "id": "1701375440226",
-  "username": "M",
-  "email": "M@yahoo.com",
-  "password": "$2b$10$hcujm9w5Esi0FwSr8IVblOmDNVIWqd4sznEdoRLgqZuk0WWPIx0Ou",
-  "todos": []
+  "id": "1702285854199",
+  "username": "K",
+  "email": "K@yahoo.com",
+  "password": "$2b$10$K9bIHz17.U9OXVEI9Lcy6.lhFvwzGmvtiIc00gqOXgdIrgmOI5XAm",
+  "todos": [
+   {
+    "id": "p9xtl2yc",
+    "todo": "k1",
+    "completed": false
+   },
+   {
+    "id": "sti2es3d",
+    "todo": "k2",
+    "completed": false
+   }
+  ]
  }
 ]
